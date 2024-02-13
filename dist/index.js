@@ -2,15 +2,17 @@
 import process from "node:process";
 import express from "express";
 import dotenv from "dotenv";
-import { a } from "./controllers/index.js";
-// ---
+import routes from "./routes/index.js";
+import { dbConnection } from "./configs/index.js";
+// defines
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 2424;
-app.get("/", (req, res) => {
-    res.send("hello world from nd with ts working");
-});
+// middlewares
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use("/api", routes);
 app.listen(PORT, () => {
-    console.log("a", a);
+    dbConnection();
     console.log("listening", PORT);
 });
